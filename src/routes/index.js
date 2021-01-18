@@ -13,7 +13,7 @@ router.get('/', async (req, res) =>{
 });
 
 router.get('/subir', (req, res) =>{
-    res.render('upload')
+    res.render('upload');
 });
 
 router.post('/subir', async (req, res) =>{
