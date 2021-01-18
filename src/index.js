@@ -1,12 +1,15 @@
-const e = require("express");
 const express = require("express");
 const uuid = require("uuid");
-
-// Inicializaciones
-const app = express();
 const path = require("path");
 const morgan = require("morgan");
 const multer = require("multer");
+const {format} = require('timeago.js');
+
+
+// Inicializaciones
+const app = express();
+require('./database');
+
 
 // Setting
 app.set("port", process.env.PORT || 3000);
@@ -30,10 +33,16 @@ app.use(
 );
 
 // Global Variables
+app.use((req, res, next) =>{
+  app.locals.format= format;
+  next();
+});
 
 // Routes
 app.use(require("./routes/index"));
+
 // Static Files
+app.use(express.static(path.join(__dirname, "public")));
 
 // Start Server
 
